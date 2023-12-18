@@ -1,1 +1,3 @@
-.teraform
+# .gitignore
+.terraform/
+aws-spring_petclinic/.teraform
