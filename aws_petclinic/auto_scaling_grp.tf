@@ -7,6 +7,51 @@ data "aws_ami" "amazon_linux_2" {
     values = ["ami-06b2cc514669d75b8"]  # Replace with your actual AMI ID
   }
 }
+resource "aws_iam_role" "example" {
+  name = "ag_iam_role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Action = "sts:AssumeRole",
+        Effect = "Allow",
+        Principal = {
+          Service = "ec2.amazonaws.com",
+        },
+      },
+    ],
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "s3_access" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
+  role       = aws_iam_role.example.name
+}
+
+resource "aws_iam_role_policy_attachment" "ec2_full_access" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
+  role       = aws_iam_role.example.name
+}
+
+resource "aws_iam_instance_profile" "example" {
+  name = "ag_iam"
+  role = aws_iam_role.example.name
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # Terraform AWS Launch Template
@@ -17,7 +62,7 @@ resource "aws_launch_template" "ec2_asg" {
   iam_instance_profile {
     name = "ag_iam"
   }
-  user_data = base64encode(templatefile("userdata.sh", { mysql_url =}))
+  user_data = base64encode(templatefile("userdata.sh", { mysql_url =aws_db_instance.db_instance.endpoint}))
   vpc_security_group_ids = [aws_security_group.alb_security_group.id]
   lifecycle {
     create_before_destroy = true
