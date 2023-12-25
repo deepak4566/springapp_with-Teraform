@@ -15,4 +15,4 @@ sudo usermod -a -G docker ssm-user
 sudo usermod -a -G docker ec2-user
 systemctl restart docker.service
 docker pull karthik0741/images:petclinic_img
-docker run -e MYSQL_URL=jdbc:mysql://${mysql_url}/petclinic -e MYSQL_USER=petclinic -e MYSQL_PASSWORD=petclinic -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=petclinic -p 80:8080 docker.io/karthik0741/images:petclinic_img
+docker run -e MYSQL_URL=jdbc:mysql://${mysql_url}/petclinic -e MYSQL_USER=petclinic -e MYSQL_PASSWORD=petclinic -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=petclinic -p 80:8080 docker.io/deepak8934/petapp:66
