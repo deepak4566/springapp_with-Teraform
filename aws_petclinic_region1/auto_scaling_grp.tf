@@ -3,8 +3,8 @@ data "aws_ami" "amazon_linux_2" {
   owners      = ["684371204192"]  # Assuming you own the AMI
 
   filter {
-    name   = "ami-version-1.0.1-1702821755"
-    values = ["ami-06b2cc514669d75b8"]  # Replace with your actual AMI ID
+    name   = "ami-version-1.0.1-1710606256"
+    values = ["ami-00967ef4e10482855"]  # Replace with your actual AMI ID
   }
 }
 resource "aws_iam_role" "example" {
