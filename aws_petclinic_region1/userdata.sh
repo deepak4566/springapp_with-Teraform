@@ -1,6 +1,23 @@
 #!/bin/bash
 # SSM user didn't start in home dir, so go there
 cd 
+# update package
+sudo yum -y update
+
+
+sudo yum install java-17-amazon-corretto-devel -y
+
+
+# install git
+sudo yum install git -y
+
+
+
+
+#insall docker 
+sudo yum install docker -y
+sudo systemctl start docker
+
 sudo yum update -y
 sudo yum install docker containerd git screen -y
 sleep 1
